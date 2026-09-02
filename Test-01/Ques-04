@@ -1,0 +1,16 @@
+// Q4. Daily Temperatures Given an array temperatures, return 
+// an array where answer[i] tells you how many days you have to wait 
+// after the i-th day to get a warmer temperature. If no future day exists, return 0.
+
+public int[] dailyTemperatures(int[] temps) {
+    int[] res = new int[temps.length];
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0; i < temps.length; i++) {
+        while (!stack.isEmpty() && temps[i] > temps[stack.peek()]) {
+            int idx = stack.pop();
+            res[idx] = i - idx;
+        }
+        stack.push(i);
+    }
+    return res;
+}
